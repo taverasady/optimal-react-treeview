@@ -1,46 +1,123 @@
-# Getting Started with Create React App
+# React TreeView Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Tree View Picture](https://i.postimg.cc/5N00Rxh2/Screenshot-2024-08-27-234254.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+The `TreeView` component is a flexible and customizable tree view component built with React. It allows you to display hierarchical data in a tree structure and handle node selection events.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You can install the `optimal-react-treeview` package via npm or yarn:
 
-### `npm test`
+```bash
+npm install optimal-react-treeview
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
 
-### `npm run build`
+```
+import React, { useState } from 'react';
+import TreeView from 'optimal-react-treeview';
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const treeData = [
+  {
+    id: '49da57b8-4104-43a4-ac36-7bb4ca28378b',
+    label: 'Parent 1',
+    disabled: false,
+    children: [
+      { id: '59fa00b8-4102-43b4-zc30-0xz3cb25388b', label: 'Child 1-1' },
+      { id: 'a1bf2b62-f9c2-4095-aafe-8140e5b63f2d', label: 'Child 1-2' },
+    ],
+  },
+  {
+    id: '3f0cce85-0256-49fb-a2e3-df75d70fbd19',
+    label: 'Parent 2',
+    disabled: true,
+    children: [
+      {
+        id: '81c99b34-765a-4899-a688-2d7b4a88cf92',
+        label: 'Child 2-1',
+        children: [{ id: 'ddb23ebe-8df0-48c9-83a8-8bd68aa46514', label: 'Child 2-1-1' }],
+      },
+    ],
+  },
+];
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+const App: React.FC = () => {
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  const handleNodeSelect = (node: any) => {
+    setSelectedNode(node);
+  };
 
-### `npm run eject`
+  return (
+    <div className="App">
+        <TreeView data={treeData} onNodeSelect={handleNodeSelect} />
+    </div>
+  );
+};
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+export default App;
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## TreeView Component Props
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The `TreeView` component accepts the following props to configure its behavior and appearance:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Props
 
-## Learn More
+- **`id`** (`string`): 
+  - **Description**: A unique identifier for the node. This is required for each node in the tree structure.
+  - **Example**: `'1'`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **`label`** (`string`): 
+  - **Description**: The label or text displayed for the node.
+  - **Example**: `'Parent 1'`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **`disabled`** (`boolean`, optional): 
+  - **Description**: A flag indicating whether the node is disabled. If `true`, the node will be visually distinct and unselectable.
+  - **Default**: `false`
+  - **Example**: `true`
+
+- **`data`** (`TreeNode[]`): 
+  - **Description**: An array of nodes. Each node should follow the same structure as the parent node.
+  - **Example**:
+```
+  [
+      {
+        "id": "49da57b8-4104-43a4-ac36-7bb4ca28378b",
+        "label": "Parent 1",
+        "disabled": false,
+        "children": [
+          { "id": "f7c4512e-5a80-4d3a-b141-9b526635e34c", "label": "Child 1-1" },
+          { "id": "a1bf2b62-f9c2-4095-aafe-8140e5b63f2d", "label": "Child 1-2" }
+        ]
+      },
+      {
+        "id": "3f0cce85-0256-49fb-a2e3-df75d70fbd19",
+        "label": "Parent 2",
+        "disabled": true,
+        "children": [
+          {
+            "id": "81c99b34-765a-4899-a688-2d7b4a88cf92",
+            "label": "Child 2-1",
+            "children": [
+              { "id": "ddb23ebe-8df0-48c9-83a8-8bd68aa46514", "label": "Child 2-1-1" }
+            ]
+          }
+        ]
+      }
+    ]
+```
+
+- **`collapsedIcon`** (`string | React.ReactElement`, optional): 
+  - **Description**: An icon or string representing the icon to be displayed when the node is collapsed. This allows customization of the collapsed state icon.
+  - **Default**: A default icon or empty if not specified.
+  - **Example**: `'🔽'` or `<Icon name="chevron-down" />`
+
+- **`notCollapsedIcon`** (`string | React.ReactElement`, optional): 
+  - **Description**: An icon or string representing the icon to be displayed when the node is expanded. This allows customization of the expanded state icon.
+  - **Default**: A default icon or empty if not specified.
+  - **Example**: `'🔼'` or `<Icon name="chevron-up" />`

@@ -1,7 +1,12 @@
 {
-  "name": "react-treeview",
-  "version": "0.1.0",
-  "private": true,
+  "name": "optimal-react-treeview",
+  "version": "0.2.0",
+  "main": "dist/components/TreeView.js",
+  "types": "dist/components/TreeView.d.ts",
+  "files": [
+    "dist",
+    "src/components/TreeView.css"
+  ],
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -19,8 +24,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "copy src\\components\\TreeView.css dist\\components\\",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepublishOnly": "tsc"
   },
   "eslintConfig": {
     "extends": [

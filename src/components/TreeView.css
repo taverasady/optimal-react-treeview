@@ -1,0 +1,72 @@
+.tree-view-container {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.6;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.tree-view-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tree-view-node {
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tree-view-node:hover {
+    background-color: #e3f2fd;
+}
+
+.tree-view-node.selected {
+    background-color: #4d66f2;
+    color: white;
+}
+
+.tree-view-toggle {
+    margin-right: 8px;
+    cursor: pointer;
+    color: #666;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.tree-view-toggle.expanded {
+    transform: rotate(90deg);
+}
+
+.tree-view-toggle:hover {
+    color: #333;
+}
+
+.tree-view-children {
+    margin-left: 20px;
+    padding-left: 10px;
+}
+
+.tree-view-node.selected::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: white;
+    display: block;
+}
+
+.tree-view-node.selected .tree-view-toggle {
+    color: white;
+}
+
+.disable-element {
+    pointer-events: none;
+    opacity: 0.65;
+}
